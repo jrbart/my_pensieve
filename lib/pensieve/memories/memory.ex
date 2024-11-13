@@ -15,6 +15,6 @@ defmodule Pensieve.Memories.Memory do
     |> cast(attrs, [:title, :content])
     |> validate_required([:title])
     |> validate_length(:title, max: 100)
-    |> validate_format(:content, ~r"^((?!voldemort).)*$"i, message: "contains the forbidden name")
+    |> validate_format(:content, ~r"^((?!voldemort).)*$", message: "contains the forbidden name")
   end
 end
