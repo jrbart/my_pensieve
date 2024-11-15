@@ -38,7 +38,13 @@ defmodule PensieveWeb.MemoryController do
    render(conn, :edit, memory: memory, changeset: changeset) 
   end
 
-  def update(conn, %{"id" => id, "memory" => memory_params}) do
-    Memories.update_memory(id, memory_params)
+  def update(conn, %{"id" => id, "memory" => memory_params} = params) do
+    IO.inspect(params)
+    memory = Memories.get_memory!(id)
+    case Memories.update_memory(memory, memory_params) do
+      {:ok, memory} -> conn
+        |> put_flash(:info, "Memory updated successfully.")
+        |> redirect(to: ~p"/memories/#{memory}")
+    end
   end
 end
