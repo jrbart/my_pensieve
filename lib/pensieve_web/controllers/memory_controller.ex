@@ -33,6 +33,8 @@ defmodule PensieveWeb.MemoryController do
 
   def edit(_conn, %{"id" => id} = _params) do
     memory = Memories.get_memory!(id)
+    changeset = Memories.change_memory(memory)
+
     
   end
 end
