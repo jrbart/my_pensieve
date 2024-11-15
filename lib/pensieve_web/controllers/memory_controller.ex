@@ -45,6 +45,8 @@ defmodule PensieveWeb.MemoryController do
       {:ok, memory} -> conn
         |> put_flash(:info, "Memory updated successfully.")
         |> redirect(to: ~p"/memories/#{memory}")
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, :edit, changeset: changeset, memory: memory)
     end
   end
 end
