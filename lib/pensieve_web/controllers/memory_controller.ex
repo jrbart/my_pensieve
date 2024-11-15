@@ -37,4 +37,8 @@ defmodule PensieveWeb.MemoryController do
 
    render(conn, :edit, memory: memory, changeset: changeset) 
   end
+
+  def update(conn, _options) do
+    conn 
+  end
 end
