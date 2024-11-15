@@ -31,10 +31,10 @@ defmodule PensieveWeb.MemoryController do
     end
   end
 
-  def edit(_conn, %{"id" => id} = _params) do
+  def edit(conn, %{"id" => id} = _params) do
     memory = Memories.get_memory!(id)
     changeset = Memories.change_memory(memory)
 
-    
+   render(conn, :edit, memory: memory, changeset: changeset) 
   end
 end
