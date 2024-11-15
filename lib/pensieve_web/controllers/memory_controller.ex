@@ -39,6 +39,6 @@ defmodule PensieveWeb.MemoryController do
   end
 
   def update(conn, %{"id" => id, "memory" => memory_params}) do
-    conn 
+    Memories.update_memory(id, memory_params)
   end
 end
