@@ -42,11 +42,20 @@ defmodule PensieveWeb.MemoryController do
     IO.inspect(params)
     memory = Memories.get_memory!(id)
     case Memories.update_memory(memory, memory_params) do
-      {:ok, memory} -> conn
+      {:ok, memory} -> 
+        conn
         |> put_flash(:info, "Memory updated successfully.")
         |> redirect(to: ~p"/memories/#{memory}")
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, :edit, changeset: changeset, memory: memory)
     end
+  end
+
+  def delete(conn, %{"id" => id} = _params) do
+    memory = Memories.get_memory!(id)
+    {:ok, _memory} = Memories.delete_memory(memory)
+    conn
+    |> put_flash(:info, "Memory deleted successfully.")
+    |> redirect(to: ~p"/memories")
   end
 end
