@@ -9,3 +9,12 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias Ecto.Schema
+alias Pensieve.{Memories,Repo}
+alias Pensieve.Memories.Memory
+
+for _ <- 0..50 do
+  Repo.insert!(
+    %Memory{title: Faker.Lorem.sentence(:rand.uniform(3),"")}
+  )
+end
