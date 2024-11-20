@@ -1,0 +1,15 @@
+6. Adding input field to search Wizard in the template
+7.handle_event in the WizardLive to support search events
+return noreply and update the wizards key
+Neel Vinoth
+6:49 AM
+https://hexdocs.pm/phoenix_live_view/welcome.html#example
+Neel Vinoth
+6:53 AM
+GET     /search/wizards                        PensieveWeb.WizardLive nil
+You
+6:55 AM
+https://hexdocs.pm/liveview_playground/LiveviewPlaygroundWeb.CoreComponents.html#table/1
+Neel Vinoth
+7:17 AM
+from p in Post, where: ilike(p.body, "Chapter%")

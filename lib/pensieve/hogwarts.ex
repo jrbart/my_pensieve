@@ -8,6 +8,13 @@ defmodule Pensieve.Hogwarts do
 
   alias Pensieve.Hogwarts.Wizard
 
+  def search_by_name(name) do
+    query = from w in Wizard, 
+              where: ilike(w.first_name, ^"%#{name}%") or
+                     ilike(w.last_name, ^"%#{name}%")
+    Repo.all(query)
+  end
+
   @doc """
   Returns the list of wizards.
 
