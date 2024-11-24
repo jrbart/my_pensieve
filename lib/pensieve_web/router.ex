@@ -24,10 +24,11 @@ defmodule PensieveWeb.Router do
     get "/about", PageController, :about
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", PensieveWeb do
-  #   pipe_through :api
-  # end
+   scope "/api", PensieveWeb.API do
+     pipe_through :api
+
+     resources "/memories", MemoryController, except: [:new, :edit]
+   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:pensieve, :dev_routes) do
