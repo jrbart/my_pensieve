@@ -15,35 +15,26 @@ defmodule PensieveWeb.API.MemoryController do
   end
 
   def create(conn, %{"memory" => memory_params}) do
-    case Memories.create_memory(memory_params) do
-      {:ok, memory} ->
-        conn
-        |> put_flash(:info, "Memory created successfully.")
-        |> redirect(to: ~p"/memories/#{memory}")
+    {:ok, memory} = Memories.create_memory(memory_params)
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :new, changeset: changeset)
-    end
+    conn
+    |> put_status(:created)
+    |> put_resp_header("location",~p"/api/memories/#{memory}")
+    |> render(:show, memory: memory)
   end
 
   def update(conn, %{"id" => id, "memory" => memory_params} = params) do
-    IO.inspect(params)
     memory = Memories.get_memory!(id)
     case Memories.update_memory(memory, memory_params) do
       {:ok, memory} -> 
-        conn
-        |> put_flash(:info, "Memory updated successfully.")
-        |> redirect(to: ~p"/memories/#{memory}")
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, :edit, changeset: changeset, memory: memory)
+        render(conn, :show, memory: memory)
+      _ -> :error
     end
   end
 
   def delete(conn, %{"id" => id} = _params) do
     memory = Memories.get_memory!(id)
     {:ok, _memory} = Memories.delete_memory(memory)
-    conn
-    |> put_flash(:info, "Memory deleted successfully.")
-    |> redirect(to: ~p"/memories")
+    send_resp(conn, :no_content, "") 
   end
 end
