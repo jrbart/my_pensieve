@@ -12,6 +12,14 @@ defmodule Pensieve.Memories do
   @spec get_memory!(id) :: %Memory{}
   def get_memory!(id), do: Repo.get!(Memory, id)
 
+  @spec fetch_memory(id) :: {:ok, %Memory{}} | :error
+  def fetch_memory(id) do
+    case Repo.get(Memory, id) do
+      %Memory{} = memory -> {:ok, memory}
+      nil -> {:error, :not_found}
+    end
+  end
+
   @spec create_memory(map) :: memory_result
   def create_memory(attrs \\ %{}) do
     %Memory{}
